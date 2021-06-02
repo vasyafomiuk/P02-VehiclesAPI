@@ -6,9 +6,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -19,11 +22,21 @@ import java.math.BigInteger;
  */
 @SpringBootApplication
 @EnableEurekaClient
-@EnableDiscoveryClient
 public class PricingServiceApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(PricingServiceApplication.class, args);
+    }
+
+    @Bean
+    @LoadBalanced
+    public RestTemplate getRestTemplate() {
+        return new RestTemplate();
+    }
+
+    @Bean
+    public WebClient.Builder getWebClientBuilder() {
+        return WebClient.builder();
     }
 
 }

@@ -68,10 +68,4 @@ public class PricingController {
         pricingService.delete(price);
         return ResponseEntity.noContent().build();
     }
-
-    @Bean
-    @LoadBalanced
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
 }
