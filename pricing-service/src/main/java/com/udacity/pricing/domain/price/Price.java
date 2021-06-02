@@ -15,7 +15,6 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @ToString
 @AllArgsConstructor
-@Table(uniqueConstraints={@UniqueConstraint(columnNames={"vehicleId"})})
 public class Price {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -51,6 +51,25 @@ public class PriceClient {
         return "(consult price)";
     }
 
+    public Price getPriceObject(Long vehicleId) {
+        try {
+            Price price = client
+                    .get()
+                    .uri(uriBuilder -> uriBuilder
+                            .path("services/price/")
+                            .queryParam("vehicleId", vehicleId)
+                            .build()
+                    )
+                    .retrieve().bodyToMono(Price.class).block();
+
+            return price;
+
+        } catch (Exception e) {
+            log.error("Unexpected error retrieving price for vehicle {}", vehicleId, e);
+        }
+        return null;
+    }
+
     public String addPrice(Price price) {
         try {
             client

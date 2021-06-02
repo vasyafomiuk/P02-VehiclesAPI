@@ -87,10 +87,11 @@ public class CarService {
                     .map(carToBeUpdated -> {
                         carToBeUpdated.setDetails(car.getDetails());
                         carToBeUpdated.setLocation(car.getLocation());
-                        priceClient.updatePrice(
-                                new Price("USD",
-                                        BigDecimal.valueOf(Double.parseDouble(car.getPrice())),
-                                        car.getId()));
+                        carToBeUpdated.setCondition(car.getCondition());
+                        carToBeUpdated.setId(car.getId());
+                        Price price = priceClient.getPriceObject(car.getId());
+                        price.setPrice(BigDecimal.valueOf(Double.parseDouble(car.getPrice())));
+                        priceClient.updatePrice(price);
                         return repository.save(carToBeUpdated);
                     }).orElseThrow(CarNotFoundException::new);
         }
